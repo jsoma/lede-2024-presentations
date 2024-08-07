@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Lede 2024 Project Presentations</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Caprasimo&display=swap" rel="stylesheet">
+    <style>
+      body {
+        background: linear-gradient(45deg, #f17c58, #e94584, #24aadb, #27dbb1, #ffdc18, #ff3706);
+        background-size: 1000% 400%;
+        animation: gradient 15s ease infinite;
+        height: 100vh;
+        font-family: "Helvetica Neue", sans-serif;
+        font-weight: 200;
+        text-shadow: rgba(0, 0, 0, 0.2) 0 0 20px;
+      }
+
+      #list {
+        font-size: 3em;
+      }
+
+      @keyframes gradient {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+      #list {
+        list-style: none;
+        text-align: center;
+        padding: 0;
+        margin: 20em 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh; /* Set the list height to the full viewport height */
+      }
+
+      #list li {
+        color: white;
+        font-size: 1em;
+        transition: font-size 0.3s, text-shadow 1s, opacity 0.5s;
+        opacity: 0.2;
+        font-family: "Caprasimo", sans-serif;
+      }
+
+      #list li.active {
+        text-shadow: rgba(0, 0, 0, 0.52) 0 0 100px;
+        font-size: 2em;
+        opacity: 1;
+        white-space: nowrap;
+      }
+
+      /* Add a wrapper for vertical centering */
+      .vert-wrapper {
+        position: fixed;
+        left: 30px;
+        top: 80%;
+        transform: translateY(-50%) rotate(-90deg);
+        transform-origin: left center;
+        white-space: nowrap;
+      }
+
+      /* Apply styles to prevent horizontal overflow */
+      .vert-wrapper div {
+        font-size: 1.5em;
+        color: white;
+        max-width: 90vh; /* Adjust as needed */
+        text-shadow: rgba(0, 0, 0, 0.5) 0 0 10px;
+        overflow: hidden;
+      }
+
+      #link,
+      #link2 {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        width: 150px;
+        text-align: center;
+      }
+
+      #link div {
+        padding-top: 10px;
+      }
+
+      #link2 {
+        top: auto;
+        bottom: 20px;
+      }
+
+      a {
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      img {
+        max-width: 100%;
+      }
+
+      #people {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <script src="qrcode.min.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const elements = document
+          .getElementById("people")
+          .innerHTML.split("\n")
+          .map((name) => `<li>${name}</li>`)
+        
+        document.getElementById("list").innerHTML = elements.join("")
+
+        let currentIndex = Math.floor(elements.length / 2)
+        let list = document.getElementById("list")
+
+        function focusNextItem() {
+          let items = list.querySelectorAll("li")
+
+          items[currentIndex - 1].classList.remove("active")
+          items[currentIndex].classList.add("active")
+          list.appendChild(items[0].cloneNode(true))
+          list.removeChild(items[0])
+
+          const activeItemRect = items[currentIndex].getBoundingClientRect()
+          const offset = activeItemRect.top + activeItemRect.height / 2 - window.innerHeight / 2
+
+          window.scrollTo({ top: window.scrollY + offset, behavior: "smooth" })
+        }
+
+        // Start cycling through items
+        const intervalId = setInterval(focusNextItem, 4000) // Change the interval time as needed
+        focusNextItem()
+
+        // Add qr codes
+        new QRCode(document.getElementById("qrcode-link"), {
+          text: "https://bit.ly/lede-2024",
+          width: 450,
+          height: 450,
+          colorLight: "transparent",
+          correctLevel : QRCode.CorrectLevel.M
+        })
+      })
+    </script>
+    <div class="vert-wrapper">
+      <div>Lede 2024: Project Presentations, Day One</div>
+    </div>
+    <div id="link">
+      <a href="https://bit.ly/lede-2024">bit.ly/lede-2024 ↗</a>
+      <div id="qrcode-link"></div><br />
+    </div>
+    <!-- <div id="link2">
+      <a
+        href="https://bit.ly/lede-2024"
+        >Project links ↗</a
+      >
+      <div id="qrcode-drive"></div><br />
+    </div> -->
+    <div id="people">
+      Rambo Talabong
+Todd Feathers
+Thilo Widder
+Sofia Ahmed
+Cynthia Seidel
+Miles Bolton
+Roy Zunder
+Jo Kim
+Adiel Kaplan
+Takayuki Yamaki
+Thomas Tao Li*
+Meghnad Bose*
+Louise Holst Andersen
+Yuiko Kochi
+Veera Tegelberg
+Natalia Motorina
+Declan Bradley
+Clara Zimban
+Lisa-Marie Eckardt
+Jessica Barker
+Ted Alcorn
+Sarah Pilz
+Janean Sorrell
+Rebecca Habtemariam
+Ainsley Martinez
+Carli Kooijman
+Christine Dicke
+Gabriel Croquer 
+Isabel Lerch
+Jade-Ruyu Yan
+Jake Rosenwasser
+Archit Mehta
+    </div>
+    <ul id="list">
+    </ul>
+  </body>
+</html>
